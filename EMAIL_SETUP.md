@@ -44,6 +44,7 @@ MATCH DETAILS
 
 Match: {{match_name}}
 Teams: {{match_teams}}
+Your Prediction: 🏆 {{predicted_winner}}
 Date: {{match_date}}
 Time: {{match_time}}
 Venue: BMO Field, Toronto
@@ -167,6 +168,7 @@ The application passes these variables to the email template:
 - `{{confirmation_number}}` - Unique booking confirmation number
 - `{{match_name}}` - Match name (e.g., "Group Stage Match 1")
 - `{{match_teams}}` - Teams playing (e.g., "Canada vs Mexico")
+- `{{predicted_winner}}` - User's prediction (e.g., "Canada to win", "Draw")
 - `{{match_date}}` - Match date
 - `{{match_time}}` - Match time
 - `{{seat_count}}` - Number of seats booked

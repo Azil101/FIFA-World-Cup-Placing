@@ -149,9 +149,25 @@ function updateMatchSummary() {
     const matchText = document.getElementById('selected-match-text');
     if (selectedMatch) {
         matchText.textContent = `${selectedMatch.name} - ${selectedMatch.date} at ${selectedMatch.time}`;
+        updatePredictionDropdown();
     } else {
         matchText.textContent = 'Please select a match';
     }
+}
+
+// Update prediction dropdown based on selected match
+function updatePredictionDropdown() {
+    const dropdown = document.getElementById('predicted-winner');
+    if (!dropdown || !selectedMatch) return;
+
+    const teams = selectedMatch.teams.split(' vs ');
+
+    dropdown.innerHTML = `
+        <option value="">Select your prediction</option>
+        <option value="${teams[0]}">${teams[0]} will win</option>
+        <option value="${teams[1]}">${teams[1]} will win</option>
+        <option value="draw">It will be a draw</option>
+    `;
 }
 
 // Update booking summary
@@ -258,6 +274,7 @@ function processBooking() {
             country: formData.get('country'),
             specialRequests: formData.get('specialRequests')
         },
+        predictedWinner: formData.get('predictedWinner'),
         bookingDate: new Date().toLocaleString(),
         confirmationNumber: generateConfirmationNumber()
     };
@@ -284,11 +301,17 @@ function showConfirmation(bookingData) {
     const modal = document.getElementById('confirmation-modal');
     const detailsDiv = document.getElementById('confirmation-details');
 
+    const predictionText = bookingData.predictedWinner === 'draw'
+        ? 'Draw'
+        : `${bookingData.predictedWinner} to win`;
+
     detailsDiv.innerHTML = `
         <p><strong>Confirmation Number:</strong> ${bookingData.confirmationNumber}</p>
         <p><strong>Name:</strong> ${bookingData.customer.fullName}</p>
         <p><strong>Email:</strong> ${bookingData.customer.email}</p>
         <p><strong>Match:</strong> ${bookingData.match.name}</p>
+        <p><strong>Teams:</strong> ${bookingData.match.teams}</p>
+        <p><strong>Your Prediction:</strong> 🏆 ${predictionText}</p>
         <p><strong>Date:</strong> ${bookingData.match.date} at ${bookingData.match.time}</p>
         <p><strong>Number of Seats:</strong> ${bookingData.seats.length}</p>
         <p><strong>Seats:</strong></p>
@@ -414,12 +437,17 @@ function sendConfirmationEmail(bookingData) {
     ).join('\n');
 
     // Email template parameters
+    const predictionText = bookingData.predictedWinner === 'draw'
+        ? 'Draw'
+        : `${bookingData.predictedWinner} to win`;
+
     const templateParams = {
         to_email: bookingData.customer.email,
         to_name: bookingData.customer.fullName,
         confirmation_number: bookingData.confirmationNumber,
         match_name: bookingData.match.name,
         match_teams: bookingData.match.teams,
+        predicted_winner: predictionText,
         match_date: bookingData.match.date,
         match_time: bookingData.match.time,
         seat_count: bookingData.seats.length,
