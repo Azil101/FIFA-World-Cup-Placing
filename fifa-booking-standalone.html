@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFA World Cup 2026 Toronto - Book Your Seats</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #0066cc;
+    --secondary-color: #ff0000;
+    --accent-color: #ffd700;
+    --success-color: #28a745;
+    --dark-color: #1a1a1a;
+    --light-color: #f8f9fa;
+    --border-color: #ddd;
+    --seat-available: #4caf50;
+    --seat-selected: #ff9800;
+    --seat-occupied: #e53935;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: var(--dark-color);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0052a3 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.05) 10px, rgba(255, 255, 255, 0.05) 20px);
+    animation: slide 20s linear infinite;
+}
+
+@keyframes slide {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header h2 {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.main-content {
+    padding: 2rem;
+}
+
+.booking-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.match-selection h3, .stadium-section h3, .booking-summary h3, .customer-form h3 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--accent-color);
+}
+
+.match-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.match-card {
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.match-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary-color);
+}
+
+.match-card.selected {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    box-shadow: 0 5px 20px rgba(0, 102, 204, 0.3);
+}
+
+.match-header {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.match-details {
+    text-align: center;
+}
+
+.teams {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.date, .time {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0.25rem 0;
+}
+
+.stadium-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.stadium-info {
+    margin-bottom: 1.5rem;
+}
+
+.legend {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stadium {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.field {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    padding: 2rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border: 3px solid white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.section {
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.section h4 {
+    color: white;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    gap: 8px;
+    max-width: 100%;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px 8px 2px 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: white;
+    font-weight: bold;
+}
+
+.seat.available {
+    background: var(--seat-available);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.seat.available:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.5);
+}
+
+.seat.selected {
+    background: var(--seat-selected);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.5);
+}
+
+.seat.occupied {
+    background: var(--seat-occupied);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.booking-summary {
+    background: linear-gradient(135deg, #fff9e6 0%, #fff3cc 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 2px solid var(--accent-color);
+}
+
+.summary-content {
+    font-size: 1.1rem;
+}
+
+.summary-content > div {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+}
+
+.selected-seats-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.seat-tag {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.seat-tag .remove {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.total-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    padding-top: 1rem;
+    border-top: 2px solid var(--accent-color);
+}
+
+.customer-form {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-group input {
+    width: auto;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0052a3 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 102, 204, 0.4);
+}
+
+.btn-submit:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header h2 {
+    color: var(--success-color);
+    margin-bottom: 1rem;
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--success-color);
+    color: white;
+    font-size: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+}
+
+.confirmation-details {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.confirmation-details p {
+    margin: 0.5rem 0;
+}
+
+.confirmation-note {
+    font-style: italic;
+    color: #666;
+    margin-top: 1rem;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-close, .btn-print {
+    flex: 1;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-close {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-close:hover {
+    background: #5a6268;
+}
+
+.btn-print {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-print:hover {
+    background: #0052a3;
+}
+
+.footer {
+    background: var(--dark-color);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.footer p {
+    margin: 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+    .header h1 { font-size: 2rem; }
+    .header h2 { font-size: 1.3rem; }
+    .main-content { padding: 1rem; }
+    .match-cards { grid-template-columns: 1fr; }
+    .seat-grid { grid-template-columns: repeat(auto-fill, minmax(35px, 1fr)); gap: 5px; }
+    .seat { width: 35px; height: 35px; font-size: 0.6rem; }
+    .legend { gap: 1rem; }
+    .modal-content { padding: 1.5rem; }
+    .modal-footer { flex-direction: column; }
+}
+
+@media print {
+    body { background: white; }
+    .header, .footer, .btn-close, .btn-print { display: none; }
+    .modal-content { box-shadow: none; }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>FIFA World Cup 2026</h1>
+                <h2>Toronto - BMO Field</h2>
+                <p class="tagline">Secure Your Seat for the Greatest Show on Earth</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="booking-container">
+                <section class="match-selection">
+                    <h3>Select Your Match</h3>
+                    <div class="match-cards">
+                        <div class="match-card" data-match="1">
+                            <div class="match-header">Group Stage Match 1</div>
+                            <div class="match-details">
+                                <p class="teams">TBD vs TBD</p>
+                                <p class="date">June 12, 2026</p>
+                                <p class="time">2:00 PM EST</p>
+                            </div>
+                        </div>
+                        <div class="match-card" data-match="2">
+                            <div class="match-header">Group Stage Match 2</div>
+                            <div class="match-details">
+                                <p class="teams">TBD vs TBD</p>
+                                <p class="date">June 18, 2026</p>
+                                <p class="time">7:00 PM EST</p>
+                            </div>
+                        </div>
+                        <div class="match-card" data-match="3">
+                            <div class="match-header">Round of 32</div>
+                            <div class="match-details">
+                                <p class="teams">TBD vs TBD</p>
+                                <p class="date">June 28, 2026</p>
+                                <p class="time">4:00 PM EST</p>
+                            </div>
+                        </div>
+                        <div class="match-card" data-match="4">
+                            <div class="match-header">Quarter Final</div>
+                            <div class="match-details">
+                                <p class="teams">TBD vs TBD</p>
+                                <p class="date">July 9, 2026</p>
+                                <p class="time">3:00 PM EST</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="stadium-section">
+                    <h3>Select Your Seats</h3>
+                    <div class="stadium-info">
+                        <div class="legend">
+                            <div class="legend-item">
+                                <div class="seat available"></div>
+                                <span>Available</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="seat selected"></div>
+                                <span>Selected</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="seat occupied"></div>
+                                <span>Occupied</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stadium">
+                        <div class="field">FIELD</div>
+                        <div class="section premium-section">
+                            <h4>Premium - $500</h4>
+                            <div class="seat-grid" data-section="premium" data-price="500"></div>
+                        </div>
+                        <div class="section vip-section">
+                            <h4>VIP - $350</h4>
+                            <div class="seat-grid" data-section="vip" data-price="350"></div>
+                        </div>
+                        <div class="section standard-section">
+                            <h4>Standard - $200</h4>
+                            <div class="seat-grid" data-section="standard" data-price="200"></div>
+                        </div>
+                        <div class="section economy-section">
+                            <h4>Economy - $100</h4>
+                            <div class="seat-grid" data-section="economy" data-price="100"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="booking-summary">
+                    <h3>Booking Summary</h3>
+                    <div class="summary-content">
+                        <div class="selected-match">
+                            <strong>Match:</strong> <span id="selected-match-text">Please select a match</span>
+                        </div>
+                        <div class="selected-seats">
+                            <strong>Selected Seats:</strong> <span id="selected-seats-count">0</span>
+                        </div>
+                        <div class="selected-seats-list" id="selected-seats-list"></div>
+                        <div class="total-price">
+                            <strong>Total:</strong> <span id="total-price">$0</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="customer-form" id="customer-form">
+                    <h3>Your Information</h3>
+                    <form id="booking-form">
+                        <div class="form-group">
+                            <label for="full-name">Full Name *</label>
+                            <input type="text" id="full-name" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <select id="country" name="country" required>
+                                <option value="">Select Country</option>
+                                <option value="canada">Canada</option>
+                                <option value="usa">United States</option>
+                                <option value="mexico">Mexico</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="special-requests">Special Requests</label>
+                            <textarea id="special-requests" name="specialRequests" rows="3"></textarea>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">I agree to the terms and conditions *</label>
+                        </div>
+                        <button type="submit" class="btn-submit" id="submit-btn" disabled>Complete Booking</button>
+                    </form>
+                </section>
+            </div>
+        </main>
+
+        <div class="modal" id="confirmation-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Booking Confirmed!</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="success-icon">✓</div>
+                    <p>Your FIFA World Cup 2026 tickets have been booked successfully!</p>
+                    <div class="confirmation-details" id="confirmation-details"></div>
+                    <p class="confirmation-note">A confirmation email has been sent to your email address.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-close" onclick="closeModal()">Close</button>
+                    <button class="btn-print" onclick="window.print()">Print Confirmation</button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 FIFA World Cup Toronto. All rights reserved.</p>
+            <p>BMO Field - 170 Princes' Blvd, Toronto, ON M6K 3C3, Canada</p>
+        </footer>
+    </div>
+
+    <script>
+let selectedMatch = null;
+let selectedSeats = [];
+let totalPrice = 0;
+
+const matches = {
+    1: { name: 'Group Stage Match 1', date: 'June 12, 2026', time: '2:00 PM EST', teams: 'TBD vs TBD' },
+    2: { name: 'Group Stage Match 2', date: 'June 18, 2026', time: '7:00 PM EST', teams: 'TBD vs TBD' },
+    3: { name: 'Round of 32', date: 'June 28, 2026', time: '4:00 PM EST', teams: 'TBD vs TBD' },
+    4: { name: 'Quarter Final', date: 'July 9, 2026', time: '3:00 PM EST', teams: 'TBD vs TBD' }
+};
+
+const seatConfig = {
+    premium: { rows: 3, seatsPerRow: 10, price: 500 },
+    vip: { rows: 4, seatsPerRow: 12, price: 350 },
+    standard: { rows: 6, seatsPerRow: 15, price: 200 },
+    economy: { rows: 8, seatsPerRow: 18, price: 100 }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    initializeSeats();
+    initializeMatchSelection();
+    initializeForm();
+});
+
+function initializeSeats() {
+    Object.keys(seatConfig).forEach(section => {
+        const grid = document.querySelector(`[data-section="${section}"]`);
+        const config = seatConfig[section];
+        for (let row = 1; row <= config.rows; row++) {
+            for (let seat = 1; seat <= config.seatsPerRow; seat++) {
+                const seatElement = createSeat(section, row, seat, config.price);
+                grid.appendChild(seatElement);
+            }
+        }
+    });
+    randomlyOccupySeats();
+}
+
+function createSeat(section, row, seat, price) {
+    const seatDiv = document.createElement('div');
+    const seatId = `${section}-${row}-${seat}`;
+    seatDiv.className = 'seat available';
+    seatDiv.dataset.seatId = seatId;
+    seatDiv.dataset.section = section;
+    seatDiv.dataset.row = row;
+    seatDiv.dataset.seat = seat;
+    seatDiv.dataset.price = price;
+    seatDiv.textContent = seat;
+    seatDiv.title = `${section.charAt(0).toUpperCase() + section.slice(1)} - Row ${row}, Seat ${seat} - $${price}`;
+    seatDiv.addEventListener('click', function() {
+        if (!selectedMatch) {
+            alert('Please select a match first!');
+            return;
+        }
+        if (this.classList.contains('occupied')) return;
+        toggleSeatSelection(this);
+    });
+    return seatDiv;
+}
+
+function toggleSeatSelection(seatElement) {
+    const seatId = seatElement.dataset.seatId;
+    const price = parseInt(seatElement.dataset.price);
+    if (seatElement.classList.contains('selected')) {
+        seatElement.classList.remove('selected');
+        seatElement.classList.add('available');
+        const index = selectedSeats.findIndex(s => s.id === seatId);
+        if (index > -1) {
+            selectedSeats.splice(index, 1);
+            totalPrice -= price;
+        }
+    } else {
+        seatElement.classList.remove('available');
+        seatElement.classList.add('selected');
+        selectedSeats.push({ id: seatId, section: seatElement.dataset.section, row: seatElement.dataset.row, seat: seatElement.dataset.seat, price: price });
+        totalPrice += price;
+    }
+    updateBookingSummary();
+}
+
+function randomlyOccupySeats() {
+    const allSeats = document.querySelectorAll('.seat.available');
+    const occupyCount = Math.floor(allSeats.length * 0.3);
+    const shuffled = Array.from(allSeats).sort(() => 0.5 - Math.random());
+    const toOccupy = shuffled.slice(0, occupyCount);
+    toOccupy.forEach(seat => {
+        seat.classList.remove('available');
+        seat.classList.add('occupied');
+    });
+}
+
+function initializeMatchSelection() {
+    const matchCards = document.querySelectorAll('.match-card');
+    matchCards.forEach(card => {
+        card.addEventListener('click', function() {
+            matchCards.forEach(c => c.classList.remove('selected'));
+            this.classList.add('selected');
+            selectedMatch = matches[this.dataset.match];
+            updateMatchSummary();
+        });
+    });
+}
+
+function updateMatchSummary() {
+    const matchText = document.getElementById('selected-match-text');
+    if (selectedMatch) {
+        matchText.textContent = `${selectedMatch.name} - ${selectedMatch.date} at ${selectedMatch.time}`;
+    } else {
+        matchText.textContent = 'Please select a match';
+    }
+}
+
+function updateBookingSummary() {
+    const seatsCount = document.getElementById('selected-seats-count');
+    const seatsList = document.getElementById('selected-seats-list');
+    const priceElement = document.getElementById('total-price');
+    seatsCount.textContent = selectedSeats.length;
+    priceElement.textContent = `$${totalPrice}`;
+    seatsList.innerHTML = '';
+    selectedSeats.forEach(seat => {
+        const tag = document.createElement('div');
+        tag.className = 'seat-tag';
+        tag.innerHTML = `${seat.section.charAt(0).toUpperCase() + seat.section.slice(1)} R${seat.row}S${seat.seat} - $${seat.price} <span class="remove" onclick="removeSeat('${seat.id}')">&times;</span>`;
+        seatsList.appendChild(tag);
+    });
+    updateSubmitButton();
+}
+
+function removeSeat(seatId) {
+    const seatElement = document.querySelector(`[data-seat-id="${seatId}"]`);
+    if (seatElement) toggleSeatSelection(seatElement);
+}
+
+function initializeForm() {
+    const form = document.getElementById('booking-form');
+    const inputs = form.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('input', updateSubmitButton);
+        input.addEventListener('change', updateSubmitButton);
+    });
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (validateForm()) processBooking();
+    });
+}
+
+function updateSubmitButton() {
+    const submitBtn = document.getElementById('submit-btn');
+    const form = document.getElementById('booking-form');
+    const formValid = form.checkValidity();
+    submitBtn.disabled = !(selectedMatch && selectedSeats.length > 0 && formValid);
+}
+
+function validateForm() {
+    if (!selectedMatch) {
+        alert('Please select a match!');
+        return false;
+    }
+    if (selectedSeats.length === 0) {
+        alert('Please select at least one seat!');
+        return false;
+    }
+    const form = document.getElementById('booking-form');
+    if (!form.checkValidity()) {
+        alert('Please fill in all required fields!');
+        return false;
+    }
+    return true;
+}
+
+function processBooking() {
+    const form = document.getElementById('booking-form');
+    const formData = new FormData(form);
+    const bookingData = {
+        match: selectedMatch,
+        seats: selectedSeats,
+        totalPrice: totalPrice,
+        customer: {
+            fullName: formData.get('fullName'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            country: formData.get('country'),
+            specialRequests: formData.get('specialRequests')
+        },
+        bookingDate: new Date().toLocaleString(),
+        confirmationNumber: generateConfirmationNumber()
+    };
+    console.log('Booking Data:', bookingData);
+    showConfirmation(bookingData);
+}
+
+function generateConfirmationNumber() {
+    const prefix = 'FIFA2026-TOR';
+    const random = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+    return `${prefix}-${random}`;
+}
+
+function showConfirmation(bookingData) {
+    const modal = document.getElementById('confirmation-modal');
+    const detailsDiv = document.getElementById('confirmation-details');
+    detailsDiv.innerHTML = `
+        <p><strong>Confirmation Number:</strong> ${bookingData.confirmationNumber}</p>
+        <p><strong>Name:</strong> ${bookingData.customer.fullName}</p>
+        <p><strong>Email:</strong> ${bookingData.customer.email}</p>
+        <p><strong>Match:</strong> ${bookingData.match.name}</p>
+        <p><strong>Date:</strong> ${bookingData.match.date} at ${bookingData.match.time}</p>
+        <p><strong>Number of Seats:</strong> ${bookingData.seats.length}</p>
+        <p><strong>Seats:</strong></p>
+        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+            ${bookingData.seats.map(seat => `<li>${seat.section.charAt(0).toUpperCase() + seat.section.slice(1)} - Row ${seat.row}, Seat ${seat.seat} ($${seat.price})</li>`).join('')}
+        </ul>
+        <p style="margin-top: 1rem;"><strong>Total Amount:</strong> $${bookingData.totalPrice}</p>
+        <p><strong>Booking Date:</strong> ${bookingData.bookingDate}</p>
+    `;
+    modal.classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function closeModal() {
+    const modal = document.getElementById('confirmation-modal');
+    modal.classList.remove('active');
+    resetBooking();
+}
+
+function resetBooking() {
+    selectedMatch = null;
+    document.querySelectorAll('.match-card').forEach(card => card.classList.remove('selected'));
+    selectedSeats.forEach(seat => {
+        const seatElement = document.querySelector(`[data-seat-id="${seat.id}"]`);
+        if (seatElement && seatElement.classList.contains('selected')) {
+            seatElement.classList.remove('selected');
+            seatElement.classList.add('available');
+        }
+    });
+    selectedSeats = [];
+    totalPrice = 0;
+    document.getElementById('booking-form').reset();
+    updateMatchSummary();
+    updateBookingSummary();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('confirmation-modal');
+        if (modal.classList.contains('active')) closeModal();
+    }
+});
+    </script>
+</body>
+</html>
