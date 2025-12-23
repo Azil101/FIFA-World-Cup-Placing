@@ -676,6 +676,12 @@ body {
         </footer>
     </div>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+        })();
+    </script>
     <script>
 let selectedMatch = null;
 let selectedSeats = [];
@@ -865,6 +871,7 @@ function processBooking() {
         confirmationNumber: generateConfirmationNumber()
     };
     console.log('Booking Data:', bookingData);
+    sendConfirmationEmail(bookingData);
     showConfirmation(bookingData);
 }
 
@@ -925,6 +932,40 @@ document.addEventListener('keydown', function(e) {
         if (modal.classList.contains('active')) closeModal();
     }
 });
+
+function sendConfirmationEmail(bookingData) {
+    const seatDetails = bookingData.seats.map(seat =>
+        `${seat.section.charAt(0).toUpperCase() + seat.section.slice(1)} - Row ${seat.row}, Seat ${seat.seat} ($${seat.price})`
+    ).join('\n');
+
+    const templateParams = {
+        to_email: bookingData.customer.email,
+        to_name: bookingData.customer.fullName,
+        confirmation_number: bookingData.confirmationNumber,
+        match_name: bookingData.match.name,
+        match_teams: bookingData.match.teams,
+        match_date: bookingData.match.date,
+        match_time: bookingData.match.time,
+        seat_count: bookingData.seats.length,
+        seat_details: seatDetails,
+        total_price: bookingData.totalPrice,
+        booking_date: bookingData.bookingDate,
+        phone: bookingData.customer.phone,
+        country: bookingData.customer.country,
+        special_requests: bookingData.customer.specialRequests || 'None'
+    };
+
+    if (typeof emailjs !== 'undefined') {
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+            .then(function(response) {
+                console.log('Email sent successfully!', response.status, response.text);
+            }, function(error) {
+                console.log('Failed to send email:', error);
+            });
+    } else {
+        console.log('EmailJS not configured. Email template:', templateParams);
+    }
+}
     </script>
 </body>
 </html>

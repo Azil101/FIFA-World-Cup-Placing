@@ -264,6 +264,9 @@ function processBooking() {
     // Store booking data (in a real app, this would be sent to a server)
     console.log('Booking Data:', bookingData);
 
+    // Send confirmation email
+    sendConfirmationEmail(bookingData);
+
     // Show confirmation modal
     showConfirmation(bookingData);
 }
@@ -401,6 +404,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Send confirmation email
+function sendConfirmationEmail(bookingData) {
+    // Format seat details for email
+    const seatDetails = bookingData.seats.map(seat =>
+        `${seat.section.charAt(0).toUpperCase() + seat.section.slice(1)} - Row ${seat.row}, Seat ${seat.seat} ($${seat.price})`
+    ).join('\n');
+
+    // Email template parameters
+    const templateParams = {
+        to_email: bookingData.customer.email,
+        to_name: bookingData.customer.fullName,
+        confirmation_number: bookingData.confirmationNumber,
+        match_name: bookingData.match.name,
+        match_teams: bookingData.match.teams,
+        match_date: bookingData.match.date,
+        match_time: bookingData.match.time,
+        seat_count: bookingData.seats.length,
+        seat_details: seatDetails,
+        total_price: bookingData.totalPrice,
+        booking_date: bookingData.bookingDate,
+        phone: bookingData.customer.phone,
+        country: bookingData.customer.country,
+        special_requests: bookingData.customer.specialRequests || 'None'
+    };
+
+    // Send email using EmailJS
+    // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual EmailJS IDs
+    if (typeof emailjs !== 'undefined') {
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+            .then(function(response) {
+                console.log('Email sent successfully!', response.status, response.text);
+            }, function(error) {
+                console.log('Failed to send email:', error);
+                // Still show confirmation even if email fails
+            });
+    } else {
+        console.log('EmailJS not configured. Email template:', templateParams);
+    }
+}
 
 // Console welcome message
 console.log('%cFIFA World Cup 2026 Toronto Booking System', 'color: #0066cc; font-size: 20px; font-weight: bold;');
