@@ -1,0 +1,19 @@
+{
+  "name": "fifa-world-cup-2026-toronto-booking",
+  "version": "1.0.0",
+  "description": "FIFA World Cup 2026 Toronto Seat Booking Application",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "FIFA",
+    "World Cup",
+    "2026",
+    "Toronto",
+    "Seat Booking"
+  ],
+  "author": "",
+  "license": "MIT"
+}
