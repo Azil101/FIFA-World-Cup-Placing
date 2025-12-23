@@ -6,10 +6,10 @@ let totalPrice = 0;
 
 // Match data
 const matches = {
-    1: { name: 'Group Stage Match 1', date: 'June 12, 2026', time: '2:00 PM EST', teams: 'TBD vs TBD' },
-    2: { name: 'Group Stage Match 2', date: 'June 18, 2026', time: '7:00 PM EST', teams: 'TBD vs TBD' },
-    3: { name: 'Round of 32', date: 'June 28, 2026', time: '4:00 PM EST', teams: 'TBD vs TBD' },
-    4: { name: 'Quarter Final', date: 'July 9, 2026', time: '3:00 PM EST', teams: 'TBD vs TBD' }
+    1: { name: 'Group Stage Match 1', date: 'June 12, 2026', time: '2:00 PM EST', teams: 'Canada vs Mexico' },
+    2: { name: 'Group Stage Match 2', date: 'June 18, 2026', time: '7:00 PM EST', teams: 'Brazil vs Argentina' },
+    3: { name: 'Round of 32', date: 'June 28, 2026', time: '4:00 PM EST', teams: 'Spain vs Germany' },
+    4: { name: 'Quarter Final', date: 'July 9, 2026', time: '3:00 PM EST', teams: 'France vs England' }
 };
 
 // Seat configuration for each section
