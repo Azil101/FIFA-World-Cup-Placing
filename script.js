@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSeats();
     initializeMatchSelection();
     initializeForm();
+    initializeMusicPlayer();
 });
 
 // Generate seats for all sections
@@ -443,6 +444,40 @@ function sendConfirmationEmail(bookingData) {
     } else {
         console.log('EmailJS not configured. Email template:', templateParams);
     }
+}
+
+// Initialize music player
+function initializeMusicPlayer() {
+    const musicToggle = document.getElementById('music-toggle');
+    const backgroundMusic = document.getElementById('background-music');
+
+    if (!musicToggle || !backgroundMusic) return;
+
+    // Set initial volume
+    backgroundMusic.volume = 0.3;
+
+    musicToggle.addEventListener('click', function() {
+        if (backgroundMusic.paused) {
+            backgroundMusic.play().then(() => {
+                musicToggle.classList.add('playing');
+                musicToggle.classList.remove('paused');
+                musicToggle.title = 'Pause Music';
+            }).catch(error => {
+                console.log('Audio playback failed:', error);
+            });
+        } else {
+            backgroundMusic.pause();
+            musicToggle.classList.remove('playing');
+            musicToggle.classList.add('paused');
+            musicToggle.title = 'Play Music';
+        }
+    });
+
+    // Handle when music ends (though it's set to loop)
+    backgroundMusic.addEventListener('ended', function() {
+        musicToggle.classList.remove('playing');
+        musicToggle.classList.add('paused');
+    });
 }
 
 // Console welcome message
