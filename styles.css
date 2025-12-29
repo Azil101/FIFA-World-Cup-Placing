@@ -242,12 +242,60 @@ body {
     margin: 0.25rem 0;
 }
 
+.countdown {
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(255, 152, 0, 0.1);
+    border-radius: 6px;
+    text-align: center;
+    animation: countdownPulse 2s ease-in-out infinite;
+}
+
+@keyframes countdownPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+.seats-counter {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(76, 175, 80, 0.15);
+    border-radius: 20px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.seats-counter:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* Stadium Section */
 .stadium-section {
     background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%);
     padding: 2rem;
     border-radius: 20px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Stadium entrance animation */
+.stadium {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.stadium.stadium-loaded {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .stadium-info {
@@ -701,6 +749,20 @@ body {
         0 6px 15px rgba(0, 230, 118, 0.6),
         inset 0 1px 0 rgba(255, 255, 255, 0.5),
         inset 0 -2px 3px rgba(0, 0, 0, 0.2);
+    animation: seatGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes seatGlow {
+    0%, 100% {
+        box-shadow: 0 6px 15px rgba(0, 230, 118, 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                    inset 0 -2px 3px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 8px 20px rgba(0, 230, 118, 0.9),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+                    inset 0 -2px 3px rgba(0, 0, 0, 0.2);
+    }
 }
 
 .seat.selected {

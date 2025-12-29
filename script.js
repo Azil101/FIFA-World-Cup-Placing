@@ -30,7 +30,104 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMatchSelection();
     initializeForm();
     initializeMusicPlayer();
+    initializeCountdowns();
+    updateSeatsRemaining();
+    startStadiumAnimation();
 });
+
+// Start stadium entrance animation
+function startStadiumAnimation() {
+    const stadium = document.querySelector('.stadium');
+    if (stadium) {
+        stadium.classList.add('stadium-loaded');
+    }
+}
+
+// Initialize countdown timers for all matches
+function initializeCountdowns() {
+    // Add countdown elements to all match cards
+    Object.keys(matches).forEach(matchId => {
+        const matchCard = document.querySelector(`[data-match="${matchId}"]`);
+        if (matchCard) {
+            const matchDetails = matchCard.querySelector('.match-details');
+            if (matchDetails && !matchDetails.querySelector('.countdown')) {
+                const countdownDiv = document.createElement('div');
+                countdownDiv.className = 'countdown';
+                countdownDiv.textContent = 'Loading...';
+                matchDetails.appendChild(countdownDiv);
+            }
+        }
+    });
+
+    // Add seats counter elements to all sections
+    Object.keys(seatConfig).forEach(section => {
+        const sectionElement = document.querySelector(`.${section}-section h4`);
+        if (sectionElement && !document.querySelector(`.${section}-counter`)) {
+            const counterSpan = document.createElement('span');
+            counterSpan.className = `seats-counter ${section}-counter`;
+            counterSpan.style.display = 'block';
+            counterSpan.style.marginTop = '0.5rem';
+            sectionElement.parentElement.insertBefore(counterSpan, sectionElement.nextSibling);
+        }
+    });
+
+    updateCountdowns();
+    // Update every second
+    setInterval(updateCountdowns, 1000);
+}
+
+// Update countdown timers
+function updateCountdowns() {
+    Object.keys(matches).forEach(matchId => {
+        const match = matches[matchId];
+        const countdownElement = document.querySelector(`[data-match="${matchId}"] .countdown`);
+
+        if (countdownElement) {
+            const matchDateTime = new Date(`${match.date} ${match.time}`);
+            const now = new Date();
+            const timeRemaining = matchDateTime - now;
+
+            if (timeRemaining > 0) {
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                countdownElement.textContent = `⏰ ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                countdownElement.style.color = '#ff9800';
+            } else {
+                countdownElement.textContent = '⚽ Match Started!';
+                countdownElement.style.color = '#4caf50';
+            }
+        }
+    });
+}
+
+// Update seats remaining counter
+function updateSeatsRemaining() {
+    Object.keys(seatConfig).forEach(section => {
+        const grid = document.querySelector(`[data-section="${section}"]`);
+        if (grid) {
+            const availableSeats = grid.querySelectorAll('.seat.available').length;
+            const totalSeats = seatConfig[section].rows * seatConfig[section].seatsPerRow;
+
+            const counterElement = document.querySelector(`.${section}-counter`);
+            if (counterElement) {
+                counterElement.textContent = `${availableSeats}/${totalSeats} available`;
+
+                // Color code based on availability
+                const percentage = (availableSeats / totalSeats) * 100;
+                if (percentage > 50) {
+                    counterElement.style.color = '#4caf50'; // Green
+                } else if (percentage > 20) {
+                    counterElement.style.color = '#ff9800'; // Orange
+                } else {
+                    counterElement.style.color = '#f44336'; // Red
+                }
+            }
+        }
+    });
+}
 
 // Generate seats for all sections
 function initializeSeats() {
@@ -111,6 +208,7 @@ function toggleSeatSelection(seatElement) {
     }
 
     updateBookingSummary();
+    updateSeatsRemaining();
 }
 
 // Randomly occupy some seats
