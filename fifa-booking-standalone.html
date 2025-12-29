@@ -406,6 +406,90 @@ body {
     left: -4px;
 }
 
+/* Player Positions on Field */
+.player {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+    border: 3px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    z-index: 5;
+    transition: all 0.3s ease;
+}
+
+.player:hover {
+    transform: scale(1.2);
+    box-shadow: 0 5px 15px rgba(25, 118, 210, 0.8);
+}
+
+.player.gk {
+    background: linear-gradient(135deg, #f57c00 0%, #e65100 100%);
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.player.lb {
+    top: 20%;
+    left: 15%;
+}
+
+.player.lcb {
+    top: 20%;
+    left: 35%;
+}
+
+.player.rcb {
+    top: 20%;
+    right: 35%;
+}
+
+.player.rb {
+    top: 20%;
+    right: 15%;
+}
+
+.player.lm {
+    top: 45%;
+    left: 20%;
+}
+
+.player.cm {
+    top: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.player.rm {
+    top: 45%;
+    right: 20%;
+}
+
+.player.lw {
+    top: 70%;
+    left: 20%;
+}
+
+.player.st {
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.player.rw {
+    top: 70%;
+    right: 20%;
+}
+
 .section {
     background: linear-gradient(135deg, rgba(52, 73, 94, 0.4) 0%, rgba(44, 62, 80, 0.6) 100%);
     padding: 1rem;
@@ -997,6 +1081,26 @@ body {
                         <!-- Center Field -->
                         <div class="field">
                             <div class="goal-left"></div>
+
+                            <!-- Player Positions (4-3-3 Formation) -->
+                            <div class="player gk" title="Goalkeeper">GK</div>
+
+                            <!-- Defenders -->
+                            <div class="player lb" title="Left Back">LB</div>
+                            <div class="player lcb" title="Left Center Back">CB</div>
+                            <div class="player rcb" title="Right Center Back">CB</div>
+                            <div class="player rb" title="Right Back">RB</div>
+
+                            <!-- Midfielders -->
+                            <div class="player lm" title="Left Midfielder">LM</div>
+                            <div class="player cm" title="Center Midfielder">CM</div>
+                            <div class="player rm" title="Right Midfielder">RM</div>
+
+                            <!-- Forwards -->
+                            <div class="player lw" title="Left Winger">LW</div>
+                            <div class="player st" title="Striker">ST</div>
+                            <div class="player rw" title="Right Winger">RW</div>
+
                             FIELD
                             <div class="goal-right"></div>
                         </div>
