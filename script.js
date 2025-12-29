@@ -6,14 +6,14 @@ let totalPrice = 0;
 
 // Match data - Real FIFA World Cup 2026 matchups
 const matches = {
-    1: { name: 'Group B - Match 1', date: 'June 12, 2026', time: '2:00 PM EST', teams: 'Canada vs Switzerland', group: 'B' },
-    2: { name: 'Group B - Match 2', date: 'June 18, 2026', time: '7:00 PM EST', teams: 'Canada vs Qatar', group: 'B' },
-    3: { name: 'Group A - Match 1', date: 'June 20, 2026', time: '4:00 PM EST', teams: 'Mexico vs South Korea', group: 'A' },
-    4: { name: 'Group C - Match 1', date: 'June 22, 2026', time: '3:00 PM EST', teams: 'Brazil vs Morocco', group: 'C' },
-    5: { name: 'Group J - Match 1', date: 'June 24, 2026', time: '7:00 PM EST', teams: 'Argentina vs Austria', group: 'J' },
-    6: { name: 'Group L - Match 1', date: 'June 26, 2026', time: '2:00 PM EST', teams: 'England vs Croatia', group: 'L' },
-    7: { name: 'Round of 32', date: 'June 30, 2026', time: '5:00 PM EST', teams: 'Spain vs Netherlands', group: 'Knockout' },
-    8: { name: 'Quarter Final', date: 'July 9, 2026', time: '3:00 PM EST', teams: 'France vs Portugal', group: 'Knockout' }
+    1: { name: 'Group B - Match 1', date: 'June 12, 2026', time: '2:00 PM EST', teams: '🇨🇦 Canada vs 🇨🇭 Switzerland', group: 'B' },
+    2: { name: 'Group B - Match 2', date: 'June 18, 2026', time: '7:00 PM EST', teams: '🇨🇦 Canada vs 🇶🇦 Qatar', group: 'B' },
+    3: { name: 'Group A - Match 1', date: 'June 20, 2026', time: '4:00 PM EST', teams: '🇲🇽 Mexico vs 🇰🇷 South Korea', group: 'A' },
+    4: { name: 'Group C - Match 1', date: 'June 22, 2026', time: '3:00 PM EST', teams: '🇧🇷 Brazil vs 🇲🇦 Morocco', group: 'C' },
+    5: { name: 'Group J - Match 1', date: 'June 24, 2026', time: '7:00 PM EST', teams: '🇦🇷 Argentina vs 🇦🇹 Austria', group: 'J' },
+    6: { name: 'Group L - Match 1', date: 'June 26, 2026', time: '2:00 PM EST', teams: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇭🇷 Croatia', group: 'L' },
+    7: { name: 'Round of 32', date: 'June 30, 2026', time: '5:00 PM EST', teams: '🇪🇸 Spain vs 🇳🇱 Netherlands', group: 'Knockout' },
+    8: { name: 'Quarter Final', date: 'July 9, 2026', time: '3:00 PM EST', teams: '🇫🇷 France vs 🇵🇹 Portugal', group: 'Knockout' }
 };
 
 // Seat configuration for each section
