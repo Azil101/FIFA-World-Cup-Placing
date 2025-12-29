@@ -521,6 +521,70 @@ body {
     right: 20%;
 }
 
+/* Team 2 Players (Opposing Team) - Red */
+.player.team2 {
+    background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
+}
+
+.player.team2.gk {
+    background: linear-gradient(135deg, #f57c00 0%, #e65100 100%);
+    top: 95%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.player.team2.lb {
+    top: 80%;
+    right: 15%;
+}
+
+.player.team2.lcb {
+    top: 80%;
+    right: 35%;
+}
+
+.player.team2.rcb {
+    top: 80%;
+    left: 35%;
+}
+
+.player.team2.rb {
+    top: 80%;
+    left: 15%;
+}
+
+.player.team2.lm {
+    top: 55%;
+    right: 20%;
+}
+
+.player.team2.cm {
+    top: 55%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.player.team2.rm {
+    top: 55%;
+    left: 20%;
+}
+
+.player.team2.lw {
+    top: 30%;
+    right: 20%;
+}
+
+.player.team2.st {
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.player.team2.rw {
+    top: 30%;
+    left: 20%;
+}
+
 .section {
     background: linear-gradient(135deg, rgba(52, 73, 94, 0.4) 0%, rgba(44, 62, 80, 0.6) 100%);
     padding: 1rem;
