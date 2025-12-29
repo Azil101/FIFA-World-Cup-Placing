@@ -18,10 +18,10 @@ const matches = {
 
 // Seat configuration for each section
 const seatConfig = {
-    premium: { rows: 3, seatsPerRow: 10, price: 500 },
-    vip: { rows: 4, seatsPerRow: 12, price: 350 },
-    standard: { rows: 6, seatsPerRow: 15, price: 200 },
-    economy: { rows: 8, seatsPerRow: 18, price: 100 }
+    premium: { rows: 3, seatsPerRow: 10, price: 1000 },
+    vip: { rows: 4, seatsPerRow: 12, price: 850 },
+    standard: { rows: 6, seatsPerRow: 15, price: 700 },
+    economy: { rows: 8, seatsPerRow: 18, price: 600 }
 };
 
 // Initialize the application
