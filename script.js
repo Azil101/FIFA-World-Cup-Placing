@@ -16,6 +16,50 @@ const matches = {
     8: { name: 'Quarter Final', date: 'July 9, 2026', time: '3:00 PM EST', teams: '🇫🇷 France vs 🇵🇹 Portugal', group: 'Knockout' }
 };
 
+// Team statistics for each match
+const matchStats = {
+    1: {
+        team1: { name: 'Canada', rank: 40, form: 'W-D-W-L-W', goals: 12, topScorer: 'Jonathan David' },
+        team2: { name: 'Switzerland', rank: 18, form: 'W-W-D-W-D', goals: 15, topScorer: 'Breel Embolo' },
+        h2h: 'Switzerland leads 2-1'
+    },
+    2: {
+        team1: { name: 'Canada', rank: 40, form: 'W-D-W-L-W', goals: 12, topScorer: 'Jonathan David' },
+        team2: { name: 'Qatar', rank: 58, form: 'L-D-L-W-L', goals: 8, topScorer: 'Almoez Ali' },
+        h2h: 'First meeting'
+    },
+    3: {
+        team1: { name: 'Mexico', rank: 15, form: 'W-W-D-W-L', goals: 18, topScorer: 'Raúl Jiménez' },
+        team2: { name: 'South Korea', rank: 25, form: 'W-L-W-W-D', goals: 14, topScorer: 'Son Heung-min' },
+        h2h: 'Tied 1-1'
+    },
+    4: {
+        team1: { name: 'Brazil', rank: 4, form: 'W-W-W-W-D', goals: 22, topScorer: 'Neymar Jr.' },
+        team2: { name: 'Morocco', rank: 13, form: 'W-D-W-W-L', goals: 16, topScorer: 'Hakim Ziyech' },
+        h2h: 'Brazil leads 2-0'
+    },
+    5: {
+        team1: { name: 'Argentina', rank: 2, form: 'W-W-W-W-W', goals: 24, topScorer: 'Lionel Messi' },
+        team2: { name: 'Austria', rank: 22, form: 'W-D-L-W-D', goals: 13, topScorer: 'Marko Arnautović' },
+        h2h: 'Argentina leads 3-0'
+    },
+    6: {
+        team1: { name: 'England', rank: 5, form: 'W-W-D-W-W', goals: 20, topScorer: 'Harry Kane' },
+        team2: { name: 'Croatia', rank: 10, form: 'D-W-W-L-D', goals: 17, topScorer: 'Luka Modrić' },
+        h2h: 'England leads 2-1'
+    },
+    7: {
+        team1: { name: 'Spain', rank: 8, form: 'W-W-W-D-W', goals: 19, topScorer: 'Álvaro Morata' },
+        team2: { name: 'Netherlands', rank: 7, form: 'W-D-W-W-W', goals: 21, topScorer: 'Memphis Depay' },
+        h2h: 'Spain leads 4-2'
+    },
+    8: {
+        team1: { name: 'France', rank: 3, form: 'W-W-W-D-W', goals: 23, topScorer: 'Kylian Mbappé' },
+        team2: { name: 'Portugal', rank: 6, form: 'W-W-L-W-W', goals: 18, topScorer: 'Cristiano Ronaldo' },
+        h2h: 'France leads 6-3'
+    }
+};
+
 // Seat configuration for each section
 const seatConfig = {
     premium: { rows: 3, seatsPerRow: 10, price: 1000 },
@@ -55,6 +99,47 @@ function initializeCountdowns() {
                 countdownDiv.className = 'countdown';
                 countdownDiv.textContent = 'Loading...';
                 matchDetails.appendChild(countdownDiv);
+            }
+
+            // Add team stats
+            if (matchStats[matchId] && !matchCard.querySelector('.team-stats')) {
+                const stats = matchStats[matchId];
+                const statsDiv = document.createElement('div');
+                statsDiv.className = 'team-stats';
+                statsDiv.innerHTML = `
+                    <div class="stats-container">
+                        <div class="team-stat">
+                            <div class="stat-label">FIFA Rank</div>
+                            <div class="stat-value">#${stats.team1.rank}</div>
+                        </div>
+                        <div class="team-stat">
+                            <div class="stat-label">Recent Form</div>
+                            <div class="stat-value form-indicator">${stats.team1.form}</div>
+                        </div>
+                        <div class="team-stat">
+                            <div class="stat-label">Top Scorer</div>
+                            <div class="stat-value">⚽ ${stats.team1.topScorer}</div>
+                        </div>
+                    </div>
+                    <div class="stats-vs">
+                        <div class="h2h-record">H2H: ${stats.h2h}</div>
+                    </div>
+                    <div class="stats-container">
+                        <div class="team-stat">
+                            <div class="stat-label">FIFA Rank</div>
+                            <div class="stat-value">#${stats.team2.rank}</div>
+                        </div>
+                        <div class="team-stat">
+                            <div class="stat-label">Recent Form</div>
+                            <div class="stat-value form-indicator">${stats.team2.form}</div>
+                        </div>
+                        <div class="team-stat">
+                            <div class="stat-label">Top Scorer</div>
+                            <div class="stat-value">⚽ ${stats.team2.topScorer}</div>
+                        </div>
+                    </div>
+                `;
+                matchDetails.appendChild(statsDiv);
             }
         }
     });
