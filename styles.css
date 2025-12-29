@@ -361,6 +361,76 @@ body {
     background: rgba(255, 255, 255, 0.4);
 }
 
+/* Goals on left and right sides of field */
+.goal-left,
+.goal-right {
+    position: absolute;
+    width: 40px;
+    height: 120px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 10;
+}
+
+.goal-left {
+    left: -20px;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+}
+
+.goal-right {
+    right: -20px;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Goal net effect */
+.goal-left::before,
+.goal-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 18px,
+            rgba(255, 255, 255, 0.2) 18px,
+            rgba(255, 255, 255, 0.2) 20px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 18px,
+            rgba(255, 255, 255, 0.2) 18px,
+            rgba(255, 255, 255, 0.2) 20px
+        );
+}
+
+/* Goal posts */
+.goal-left::after,
+.goal-right::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 100%;
+    background: linear-gradient(180deg, #f5f5f5 0%, #d0d0d0 100%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.goal-left::after {
+    right: -4px;
+}
+
+.goal-right::after {
+    left: -4px;
+}
+
 .section {
     background: linear-gradient(135deg, rgba(52, 73, 94, 0.4) 0%, rgba(44, 62, 80, 0.6) 100%);
     padding: 1rem;
