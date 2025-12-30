@@ -60,6 +60,43 @@ const matchStats = {
     }
 };
 
+// FIFA World Cup 2026 - All 48 Teams by Group
+const tournamentGroups = {
+    A: ['🇲🇽 Mexico', '🇰🇷 South Korea', '🇩🇰 Denmark', '🇨🇲 Cameroon'],
+    B: ['🇨🇦 Canada', '🇨🇭 Switzerland', '🇶🇦 Qatar', '🇪🇨 Ecuador'],
+    C: ['🇧🇷 Brazil', '🇲🇦 Morocco', '🇸🇪 Sweden', '🇨🇴 Colombia'],
+    D: ['🇩🇪 Germany', '🇯🇵 Japan', '🇸🇳 Senegal', '🇨🇷 Costa Rica'],
+    E: ['🇺🇸 USA', '🇺🇾 Uruguay', '🇵🇱 Poland', '🇬🇭 Ghana'],
+    F: ['🇮🇹 Italy', '🇳🇬 Nigeria', '🇷🇸 Serbia', '🇨🇱 Chile'],
+    G: ['🇦🇺 Australia', '🇪🇬 Egypt', '🇨🇿 Czech Republic', '🇵🇪 Peru'],
+    H: ['🇧🇪 Belgium', '🇮🇷 Iran', '🇹🇳 Tunisia', '🇸🇦 Saudi Arabia'],
+    I: ['🇳🇱 Netherlands', '🇩🇿 Algeria', '🇮🇸 Iceland', '🇯🇲 Jamaica'],
+    J: ['🇦🇷 Argentina', '🇦🇹 Austria', '🇻🇪 Venezuela', '🇲🇱 Mali'],
+    K: ['🇪🇸 Spain', '🇹🇷 Turkey', '🇵🇦 Panama', '🇳🇿 New Zealand'],
+    L: ['🏴󠁧󠁢󠁥󠁮󠁧󠁿 England', '🇭🇷 Croatia', '🇵🇹 Portugal', '🇫🇷 France']
+};
+
+// Match venues and host cities
+const venues = {
+    1: { stadium: 'BMO Field', city: 'Toronto, Canada', capacity: '30,000' },
+    2: { stadium: 'BMO Field', city: 'Toronto, Canada', capacity: '30,000' },
+    3: { stadium: 'BMO Field', city: 'Toronto, Canada', capacity: '30,000' },
+    4: { stadium: 'BMO Field', city: 'Toronto, Canada', capacity: '30,000' },
+    5: { stadium: 'BMO Field', city: 'Toronto, Canada', capacity: '30,000' },
+    6: { stadium: 'BMO Field', city: 'Toronto, Canada', capacity: '30,000' },
+    7: { stadium: 'BMO Field', city: 'Toronto, Canada', capacity: '30,000' },
+    8: { stadium: 'BMO Field', city: 'Toronto, Canada', capacity: '30,000' }
+};
+
+// Tournament info
+const tournamentInfo = {
+    totalTeams: 48,
+    totalGroups: 12,
+    startDate: 'June 11, 2026',
+    endDate: 'July 19, 2026',
+    hostCountries: ['🇨🇦 Canada', '🇺🇸 USA', '🇲🇽 Mexico']
+};
+
 // Seat configuration for each section
 const seatConfig = {
     premium: { rows: 3, seatsPerRow: 10, price: 1000 },
@@ -70,6 +107,7 @@ const seatConfig = {
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
+    initializeTournamentOverview();
     initializeSeats();
     initializeMatchSelection();
     initializeForm();
@@ -78,6 +116,55 @@ document.addEventListener('DOMContentLoaded', function() {
     updateSeatsRemaining();
     startStadiumAnimation();
 });
+
+// Initialize tournament overview section
+function initializeTournamentOverview() {
+    const overview = document.getElementById('tournament-overview');
+    if (!overview) return;
+
+    // Add tournament info
+    const infoHTML = `
+        <div class="tournament-header">
+            <h2>🏆 FIFA World Cup 2026</h2>
+            <div class="tournament-stats">
+                <div class="stat-badge">${tournamentInfo.totalTeams} Teams</div>
+                <div class="stat-badge">${tournamentInfo.totalGroups} Groups</div>
+                <div class="stat-badge">📅 ${tournamentInfo.startDate} - ${tournamentInfo.endDate}</div>
+            </div>
+            <div class="host-countries">
+                <strong>Host Countries:</strong> ${tournamentInfo.hostCountries.join(' • ')}
+            </div>
+        </div>
+    `;
+
+    // Add groups display
+    let groupsHTML = '<div class="groups-container">';
+    Object.keys(tournamentGroups).forEach(group => {
+        groupsHTML += `
+            <div class="group-card">
+                <div class="group-header">Group ${group}</div>
+                <div class="group-teams">
+                    ${tournamentGroups[group].map(team => `<div class="group-team">${team}</div>`).join('')}
+                </div>
+            </div>
+        `;
+    });
+    groupsHTML += '</div>';
+
+    overview.innerHTML = infoHTML + groupsHTML;
+
+    // Add toggle functionality
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'toggle-groups-btn';
+    toggleBtn.textContent = 'Hide Groups ▲';
+    toggleBtn.onclick = function() {
+        const container = document.querySelector('.groups-container');
+        container.classList.toggle('collapsed');
+        this.textContent = container.classList.contains('collapsed') ?
+            'Show All Groups ▼' : 'Hide Groups ▲';
+    };
+    overview.querySelector('.tournament-header').appendChild(toggleBtn);
+}
 
 // Start stadium entrance animation
 function startStadiumAnimation() {
@@ -99,6 +186,28 @@ function initializeCountdowns() {
                 countdownDiv.className = 'countdown';
                 countdownDiv.textContent = 'Loading...';
                 matchDetails.appendChild(countdownDiv);
+            }
+
+            // Add venue information
+            if (venues[matchId] && !matchCard.querySelector('.venue-info')) {
+                const venue = venues[matchId];
+                const venueDiv = document.createElement('div');
+                venueDiv.className = 'venue-info';
+                venueDiv.innerHTML = `
+                    <div class="venue-details">
+                        <span class="venue-icon">🏟️</span>
+                        <span class="venue-text">${venue.stadium}</span>
+                    </div>
+                    <div class="venue-details">
+                        <span class="venue-icon">📍</span>
+                        <span class="venue-text">${venue.city}</span>
+                    </div>
+                    <div class="venue-details">
+                        <span class="venue-icon">👥</span>
+                        <span class="venue-text">Capacity: ${venue.capacity}</span>
+                    </div>
+                `;
+                matchDetails.insertBefore(venueDiv, matchDetails.firstChild);
             }
 
             // Add team stats

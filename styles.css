@@ -348,6 +348,152 @@ body {
     text-align: center;
 }
 
+/* Tournament Overview */
+#tournament-overview {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.tournament-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.tournament-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tournament-stats {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+}
+
+.stat-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.host-countries {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.toggle-groups-btn {
+    margin-top: 1rem;
+    padding: 0.7rem 1.5rem;
+    background: white;
+    color: var(--primary-color);
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-groups-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.groups-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.groups-container.collapsed {
+    max-height: 0;
+    opacity: 0;
+}
+
+.group-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.group-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.group-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0052a3 100%);
+    color: white;
+    padding: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.group-teams {
+    padding: 0.8rem;
+}
+
+.group-team {
+    padding: 0.4rem;
+    margin: 0.3rem 0;
+    background: rgba(0, 102, 204, 0.05);
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    color: var(--dark-color);
+}
+
+.group-team:hover {
+    background: rgba(0, 102, 204, 0.15);
+    transform: translateX(5px);
+}
+
+/* Venue Information */
+.venue-info {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 8px;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.venue-details {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.venue-icon {
+    font-size: 1.1rem;
+}
+
+.venue-text {
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
 /* Stadium Section */
 .stadium-section {
     background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%);
